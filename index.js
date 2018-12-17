@@ -1,69 +1,110 @@
 const Discord = require("discord.js");
-const v1 = new Discord.Client;
-const v2 = new Discord.Client;
-const v3 = new Discord.Client;
-///const v4 = new Discord.Client; ....v5.v6.v7.v8
+const bot = new Discord.Client({autoReconnect:true});
 
-v1.on('message', message => {
-    if(message.content.startsWith("wa")) {
-if(argresult){
-           message.channel.send("**Watching: **" + "`" + `${argresult}` + "`" ).then(message => {message.delete(3000)})
-          bot.user.setActivity(argresult, {type:'WATCHING'});
-        } else 
-        if(!argresult) {
-        message.channel.send("**December is an error**").then(message => {message.delete(3000)})          
-        }
-      message.delete(3000);
-    }  
+bot.on("ready", () => {
+  console.log("By Savage");
+  console.log("Logged in " + bot.user.username);
 });
 
+bot.login(process.env.BOT_TOKEN);
+const ownerid = "496824761305792532";
+const prefix = "#";
 
-v2.on('message', message => {
-    if(message.content.startsWith("wa")) {
+bot.on('message', message => {
+  if (!message.content.startsWith(prefix)) return;
+  var args = message.content.split(' ').slice(1);
+  var argresult = args.join(' ');
+  if (message.author.id !== ownerid) return;
 
-    if(argresult){
-               message.channel.send("**Watching: **" + "`" + `${argresult}` + "`" ).then(message => {message.delete(3000)})
-              bot.user.setActivity(argresult, {type:'WATCHING'});
-            } else 
-            if(!argresult) {
-            message.channel.send("**December is an error**").then(message => {message.delete(3000)})          
-            }
-          
-            message.delete(3000);
-        }
-        
-    });
+  if (message.content.startsWith(prefix + 'wat')) {
+                
+      if(argresult){
+         message.channel.send("**Watching: **" + "`" + `${argresult}` + "`" ).then(message => {message.delete(3000)})
+        bot.user.setActivity(argresult, {type:'WATCHING'});
+      } else 
+      if(!argresult) {
+      message.channel.send("**December is an error**").then(message => {message.delete(3000)})          
+      }
+    message.delete(3000);
+  } else
+   if (message.content.startsWith(prefix + 'stream')) {
+                
+      if(argresult){
+         message.channel.send("**Streaming: **" + "`" + `${argresult}` + "`" ).then(message => {message.delete(3000)})
+        bot.user.setActivity(argresult, {type:'STREAMING', url:"https://www.twitch.tv/TheFuture"});
+      } else 
+      if(!argresult) {
+      message.channel.send("**December is an error**").then(message => {message.delete(3000)})          
+      }
+    message.delete(3000);
+  } else
+	    if (message.content.startsWith(prefix + 'play')) {
+             
+      if(argresult){
+         message.channel.send("**Playing: **" + "`" + `${argresult}` + "`" ).then(message => {message.delete(3000)})
+        bot.user.setActivity(argresult, {type:'PLAYING'});
+      } else 
+      if(!argresult) {
+      message.channel.send("**December is an error**").then(message => {message.delete(3000)})          
+      }
+    message.delete(3000);
+  } else
+  
+    if (message.content.startsWith(prefix + 'listen')) {
+               
+      if(argresult){
+         message.channel.send("**Listening To: **" + "`" + `${argresult}` + "`" ).then(message => {message.delete(3000)})
+        bot.user.setActivity(argresult, {type:'LISTENING'});
+      } else 
+      if(!argresult) {
+      message.channel.send("**December is an error**").then(message => {message.delete(3000)})          
+      }
+    message.delete(3000);
+  } else
+	  if (message.content.startsWith(prefix + "dnd")) {
+        message.channel.send("**Done Changing Your Status To `DND`**").then(message => {message.delete(3000)})
+        message.delete(3000);
+		  bot.user.setStatus("dnd");
+	  } else
+		  
+      if (message.content.startsWith(prefix + "idle")) {
+        message.channel.send("**Done Changing Your Status To `IDLE`**").then(message => {message.delete(3000)})
+        message.delete(3000);
+		  bot.user.setStatus("idle");
+	  } else
+		  
+	  if (message.content.startsWith(prefix + "off")) {
+          message.channel.send("**Done Changing Your Status To `OFFLINE`**").then(message => {message.delete(3000)})
+          message.delete(3000);
+		  bot.user.setStatus("invisible");
+	  } else 
 
-    v3.on('message', message => {
-        if(message.content.startsWith("wa")) {
+       if (message.content.startsWith(prefix + "مسح")) {
 
-        if(argresult){
-                   message.channel.send("**Watching: **" + "`" + `${argresult}` + "`" ).then(message => {message.delete(3000)})
-                  bot.user.setActivity(argresult, {type:'WATCHING'});
-                } else 
-                if(!argresult) {
-                message.channel.send("**December is an error**").then(message => {message.delete(3000)})          
-                }
-              message.delete(3000);
-            
-            }
+        let count = parseInt(args[0]) || 1;
+
+          message.delete();
+          message.channel.fetchMessages({ limit: Math.min(count, 100), before: message.id }).then(messages => {
+          const prunable = messages.filter(m => m.author.id === bot.user.id);
+
+        return Promise.all(
+            prunable.map(m => m.delete())
+        ).then(() => {
         });
-
-        /*v4.on('message', message => {
-            if(message.content.startsWith("wa")) {
-        if(argresult){
-                   message.channel.send("**Watching: **" + "`" + `${argresult}` + "`" ).then(message => {message.delete(3000)})
-                  bot.user.setActivity(argresult, {type:'WATCHING'});
-                } else 
-                if(!argresult) {
-                message.channel.send("**December is an error**").then(message => {message.delete(3000)})          
-                }
-              message.delete(3000);
-            }  
-        });...v5.v6.v7.v8*/
-
-
-v1.login("token");
-v2.login("token");
-v3.login("token");
-///v4.login("token");...v5.v6.v7.v8
+    }).catch(message.error);
+    
+} else
+       if (message.content.startsWith(prefix + "P")) {
+           var mentionned = message.mentions.users.first();
+    var MsH;
+      if(mentionned){
+          var MsH = mentionned;
+      } else {
+          var MsH = message.author;
+          
+      }
+          message.channel.send(MsH.avatarURL)
+          message.delete(3000);
+	  } 
+		  
+});
